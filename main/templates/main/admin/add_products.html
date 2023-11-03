@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Add product{% endblock %}
+
+{% block content %}
+    <h1>Add product</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Create product</button>
+    </form>
+
+    <h1>Update product</h1>
+    <div class="row">
+        {% for product in products %}
+            <div class="card" style="width: 18rem;">
+                <p> Title: {{ product.title }} </p>
+                <p> Price: {{ product.price }} </p>
+                <p> Stock: {{ product.stock }} </p>
+                <p> Description: {{ product.description }} </p>
+                <a href="{% url 'update_product' product.pk %}">Update product</a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

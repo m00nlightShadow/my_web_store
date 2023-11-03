@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Web store{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% for product in product_list %}
+            <div div class="card" style="width: 18rem;">
+                <p> Title: {{ product.title }} </p>
+                <p> Description: {{ product.description }} </p>
+                <p> Price: {{ product.price }} </p>
+                <p> Stock: {{ product.stock }} </p>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'purchase_product' product.pk %}">Buy</a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
