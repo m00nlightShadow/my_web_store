@@ -11,7 +11,11 @@
                 <p> Price: {{ product.price }} </p>
                 <p> Stock: {{ product.stock }} </p>
                 {% if request.user.is_authenticated %}
-                    <a href="{% url 'purchase_product' product.pk %}">Buy</a>
+                    <form method="post" action="{% url 'purchase_product' product.pk %}">
+                        {% csrf_token %}
+                        {{ purchase_form }}
+                        <input type="submit" value="Buy">
+                    </form>
                 {% endif %}
             </div>
         {% endfor %}

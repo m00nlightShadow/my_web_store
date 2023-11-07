@@ -20,8 +20,8 @@ class Product(models.Model):
 
 class Purchase(models.Model):
     purchased_at = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='purchase_user')
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='purchase_product')
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='purchase')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='purchase')
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
@@ -29,5 +29,5 @@ class Purchase(models.Model):
 
 
 class ProductReturn(models.Model):
-    product = models.OneToOneField(Purchase, on_delete=models.CASCADE, related_name='return_product')
+    product = models.OneToOneField(Purchase, on_delete=models.CASCADE, related_name='product_return')
     request_return = models.DateTimeField(auto_now_add=True)

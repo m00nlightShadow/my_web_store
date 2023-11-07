@@ -3,6 +3,7 @@
 {% block title %}My purchases{% endblock %}
 
 {% block content %}
+    <h3>If you want to return a purchase, you can do this only within 3 minutes after the purchase</h3>
 {% for purchase in purchase_list %}
     <div div class="card" style="width: 18rem;">
         <p> Product: {{ purchase.product.title }} </p>
