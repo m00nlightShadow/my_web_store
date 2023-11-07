@@ -1,7 +1,6 @@
 from django.contrib.auth import login
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.core.exceptions import PermissionDenied
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
@@ -89,9 +88,6 @@ class AddProductView(StaffRequiredMixin, CreateView):
         context['products'] = Product.objects.all()
         return context
 
-    def handle_no_permission(self):
-        raise PermissionDenied
-
 
 class UpdateProductView(StaffRequiredMixin, UpdateView):
     queryset = Product.objects.all()
@@ -100,9 +96,6 @@ class UpdateProductView(StaffRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('add_products')
-
-    def handle_no_permission(self):
-        raise PermissionDenied
 
 
 class PurchaseListView(LoginRequiredMixin, ListView):
@@ -114,7 +107,7 @@ class PurchaseListView(LoginRequiredMixin, ListView):
         return Purchase.objects.filter(user=self.request.user)
 
 
-class ProductReturnView(StaffRequiredMixin, CreateView):
+class ProductReturnView(LoginRequiredMixin, CreateView):
     model = ProductReturn
     form_class = ProductReturnForm
     template_name = 'main/user/return_product.html'
