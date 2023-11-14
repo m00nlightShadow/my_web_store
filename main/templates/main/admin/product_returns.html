@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Refunds{% endblock %}
+
+{% block content %}
+    {% for return in return_product_list %}
+        <div class="card" style="width: 18rem;">
+            <p> Product: {{ return.product.product.title }} </p>
+            <p> Quantity: {{ return.product.quantity }} </p>
+            <p> User: {{ return.product.user }} </p>
+            <p> Price by 1: {{ return.product.product.price }} </p>
+            <form method="post" action="{% url 'apply_return' return.pk %}">
+                {% csrf_token %}
+                <button type="submit">Apply</button>
+            </form>
+            <form method="post" action="{% url 'reject_return' return.pk %}">
+                {% csrf_token %}
+                <button type="submit">Reject</button>
+            </form>
+        </div>
+    {% endfor %}
+{% endblock %}
